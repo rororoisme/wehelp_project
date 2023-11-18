@@ -1,5 +1,5 @@
 import React from 'react';
-import indexLayoutStyles from '../styles/IndexLayout.module.css';
+import indexLayoutStyles from '../styles/indexLayout.module.css';
 import Pomodoro from '../components/PomodoroCP';
 import MyFullCalendar from '../components/MyFullCalendarCP';
 import { FriendsProvider } from '../components/FriendsContext';
