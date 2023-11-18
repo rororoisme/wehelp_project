@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+}
+  
+.pomodoro {
+    flex: 0 0 30%;
+}
+  
+.calendar {
+    flex: 0 0 50%;
+}
+
+.friendsList {
+    flex: 0 0 20%;
+}
+  
