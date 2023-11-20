@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { FriendsContext } from './FriendsContext';
+import styles from '../styles/friends.module.css';
 
 export default function FriendsList() {
     const { friends, addFriend, removeFriend } = useContext(FriendsContext);
@@ -15,18 +16,18 @@ export default function FriendsList() {
 
     return (
         <div>
-            <input
+            <input className={styles.input}
                 type="text"
                 value={newFriendName}
                 onChange={(e) => setNewFriendName(e.target.value)}
                 placeholder="輸入好友名稱"
             />
-            <button onClick={handleAddFriend}>添加好友</button>
+            <button onClick={handleAddFriend} className={styles.btn}>添加</button>
             <ul>
                 {friends.map((friend, index) => (
                     <li key={index}>
                         {friend.name}
-                        <button onClick={() => removeFriend(friend.name)}>移除好友</button>
+                        <button onClick={() => removeFriend(friend.name)} className={styles.btn}>移除</button>
                     </li>
                 ))}
             </ul>

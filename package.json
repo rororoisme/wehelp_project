@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "hello":"echo HELLO"
   },
   "dependencies": {
     "@fullcalendar/daygrid": "^6.1.9",

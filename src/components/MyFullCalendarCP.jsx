@@ -14,13 +14,29 @@ export default function MyFullCalendarCP() {
         imageNumber: lastCompletedPomodoro.imageNumber,
     }] : [];
 
+    // 處理行事曆上的圖片位置
     const eventContent = (eventInfo) => (
-        <
-        img src={`/pic/${eventInfo.event.extendedProps.imageNumber}.jpg`} 
-        alt={`Pomodoro ${eventInfo.event.extendedProps.imageNumber}`}
-        style={{ width: '100%', height: 'auto' }} 
-        />
+        <div style={{
+            color: 'unset',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center', 
+            height: '100%',    
+            width: '100%'         
+        }}>
+            <img 
+                src={`/pic/a${eventInfo.event.extendedProps.imageNumber}.png`} 
+                alt={`Pomodoro ${eventInfo.event.extendedProps.imageNumber}`}
+                style={{ 
+                    width: '90px', 
+                    height: '60px',
+                    maxWidth: '100%',
+                    maxHeight: '100%'
+                }} 
+            />
+        </div>
     );
+    
 
     return (
         <FullCalendar
