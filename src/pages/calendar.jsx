@@ -15,6 +15,7 @@ export default function Home() {
             console.error("Error logging out", error);
         }
     };
+    
     return (
         <div>
             <h1>我的日曆</h1>

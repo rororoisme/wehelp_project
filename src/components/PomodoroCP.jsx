@@ -2,13 +2,13 @@ import { useContext, useEffect, useState } from 'react';
 import { PomodoroContext } from './PomodoroContext';
 import styles from '../styles/pomodoro.module.css';
 import { db } from '../firebase/firebaseConfig';
-import { collection, addDoc } from 'firebase/firestore';
+import { doc, setDoc, addDoc, collection } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
 export default function Pomodoro() {
     const [timeLeft, setTimeLeft] = useState(25 * 60);
     const [isRunning, setIsRunning] = useState(false);
-    const { incrementPomodoroCount, getPomodoroCount } = useContext(PomodoroContext);
+    const { loadPomodoroCount,incrementPomodoroCount } = useContext(PomodoroContext);
 
     useEffect(() => {
         let interval;
@@ -34,6 +34,11 @@ export default function Pomodoro() {
         setIsRunning(false);
     };
 
+    // 在元件掛載時加載番茄鐘計數
+    useEffect(() => {
+        loadPomodoroCount(); 
+    }, []);
+
     const savePomodoroCompletion = async () => {
         const auth = getAuth();
         const user = auth.currentUser;
@@ -43,6 +48,11 @@ export default function Pomodoro() {
         if (user) {
             const today = new Date().toISOString().split('T')[0];
             try {             
+                // 增加更新計數的邏輯
+                const docRef = doc(db, 'pomodoroCounts', user.uid);
+                await setDoc(docRef, { count: pomodoroCount + 1 });
+
+                // 保存其他資料
                 await addDoc(collection(db, 'project'), {
                     userId: user.uid,
                     date: today,
