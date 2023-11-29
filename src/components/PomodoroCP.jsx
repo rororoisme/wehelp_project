@@ -47,7 +47,6 @@ export default function Pomodoro() {
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
-                    // ----firebase有紀錄的狀況
                     // 從後端拿 lastCompletedPomodoro字段，並用 setLastCompletedPomodoro更新
                     setLastCompletedPomodoro(docSnap.data().lastCompletedPomodoro);
 
@@ -62,11 +61,14 @@ export default function Pomodoro() {
                         date: new Date().toISOString().split('T')[0],
                         imageNumber: 1, // 初始值
                     };
+                    // 指定紀錄格式為 lastCompletedPomodoro[date:a, imageNumber:a]
                     await setDoc(docRef, { lastCompletedPomodoro: newRecord });
-                    setLastCompletedPomodoro(newRecord);
+                    // 更新 state
+                   setLastCompletedPomodoro(newRecord);
                 }
             }
         });
+    // 只渲染一次
     }, []);
 
 

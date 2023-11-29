@@ -34,7 +34,7 @@ export const PomodoroProvider = ({ children }) => {
             await setDoc(docRef, { lastCompletedPomodoro: record }, { merge: true });
         }
     };
-    
+
 
     return (
         <PomodoroContext.Provider value={{ pomodoroCount, incrementPomodoroCount, lastCompletedPomodoro, setLastCompletedPomodoro , setPomodoroCount}}>
