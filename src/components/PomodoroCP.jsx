@@ -2,13 +2,17 @@ import { useContext, useEffect, useState } from 'react';
 import { PomodoroContext } from './PomodoroContext';
 import styles from '../styles/pomodoro.module.css';
 import { db } from '../firebase/firebaseConfig';
-import { collection, addDoc } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 export default function Pomodoro() {
     const [timeLeft, setTimeLeft] = useState(25 * 60);
     const [isRunning, setIsRunning] = useState(false);
-    const { incrementPomodoroCount, getPomodoroCount } = useContext(PomodoroContext);
+    const { incrementPomodoroCount } = useContext(PomodoroContext);
+    const { setLastCompletedPomodoro } = useContext(PomodoroContext);
+    const { setPomodoroCount } = useContext(PomodoroContext);
+
+    // TODO:檢查跑完之後為什麼會從60分開始倒數
 
     useEffect(() => {
         let interval;
@@ -34,31 +38,41 @@ export default function Pomodoro() {
         setIsRunning(false);
     };
 
-    const savePomodoroCompletion = async () => {
+    useEffect(() => {
         const auth = getAuth();
-        const user = auth.currentUser;
-        
-        // 有登錄才能看
-        // 若只有 user 會連登入的那次都寫入
-        if (user) {
-            const today = new Date().toISOString().split('T')[0];
-            try {             
-                await addDoc(collection(db, 'project'), {
-                    userId: user.uid,
-                    date: today,
-                    // 其他後續會用到的數據
-                });
-                console.log("番茄鐘成功儲存!");
-            } catch (e) {
-                console.error("番茄鐘寫入失敗!", e);
+        // 監聽用戶登入狀態, (認證對象, callBack)
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const docRef = doc(db, 'pomodoroImages', user.uid);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    // ----firebase有紀錄的狀況
+                    // 從後端拿 lastCompletedPomodoro字段，並用 setLastCompletedPomodoro更新
+                    setLastCompletedPomodoro(docSnap.data().lastCompletedPomodoro);
+
+                    // 從後端拿 lastCompletedPomodoro.imageNumber, 用 setPomodoroCount更新
+                    // incrementPomodoroCount(影響setcount) 是從0開始, 每次跑完都+1, 因此這裡也要call function 讓它一起把context的值與資料庫互動, 更新
+                    // 順序為-> 計算docSnap.data().lastCompletedPomodoro.imageNumber-> 丟到setPomodoroCount-> 丟回context
+                    setPomodoroCount(docSnap.data().lastCompletedPomodoro.imageNumber);
+
+                } else {
+                    // ----firebase沒紀錄, 就寫一個新的
+                    const newRecord = {
+                        date: new Date().toISOString().split('T')[0],
+                        imageNumber: 1, // 初始值
+                    };
+                    await setDoc(docRef, { lastCompletedPomodoro: newRecord });
+                    setLastCompletedPomodoro(newRecord);
+                }
             }
-        }
-    };
+        });
+    }, []);
+
 
     const nextPomodoro = () => {
         resetTimer();
         incrementPomodoroCount();
-        savePomodoroCompletion();
     };
     
     

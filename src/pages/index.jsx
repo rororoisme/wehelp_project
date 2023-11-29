@@ -7,14 +7,12 @@ import FriendsList from '../components/FriendsList';
 import PomodoroImage from '../components/PomodoroImage';
 import { PomodoroContext } from '../components/PomodoroContext';
 import useProtectedRoute from '../hooks/useProtectedRoute';
-import { useRouter } from 'next/router';
 import { logout } from '../utils/logout';
 import styles from '../styles/friends.module.css'; // TODO:水滴特效, 到時候再組件特製給friends, 重做一個index.jsx 用
 
 export default function Home() {
     const { lastCompletedPomodoro } = useContext(PomodoroContext);
     useProtectedRoute();
-    const router = useRouter();
 
     const handleLogout = async () => {
         try {
