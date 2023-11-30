@@ -1,6 +1,6 @@
 export default function PomodoroImage({ imageNumber }) {
     if (!imageNumber) {
-      return null; // 默認0 的圖片
+      return null; // TODO:默認0 的圖片
     }
   
     return (
