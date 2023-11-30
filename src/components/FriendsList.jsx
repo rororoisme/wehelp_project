@@ -37,6 +37,8 @@ export default function FriendsList() {
             setErrorMessage('不能添加自己為好友');
             return;
         }
+        
+        // TODO:處理已成為好友關係的邏輯
 
         // 從 users 集合中抓出 userName
         const currentUserQuery = query(collection(db, 'users'), where('uid', '==', currentUser.uid));

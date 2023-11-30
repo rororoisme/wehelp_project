@@ -42,7 +42,7 @@ const FriendRequests = () => {
         const requestRef = doc(db, 'friendRequests', requestId);
         await updateDoc(requestRef, { status: isAccept ? 'accepted' : 'rejected' });
 
-        // 更新请求的处理状态
+        // 更新好友邀請的狀態
         setRequests(requests.map(request => 
             request.id === requestId ? { ...request, isHandled: true } : request
         ));

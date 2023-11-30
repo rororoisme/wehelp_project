@@ -20,7 +20,7 @@ export const FriendsProvider = ({ children }) => {
                 setCurrentUser(null);
             }
         });
-        return unsubscribe; // 清理訂閱
+        return unsubscribe; // 清空
     }, []);
 
     // 從 Firebase 加載好友

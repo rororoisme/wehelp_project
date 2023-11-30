@@ -59,7 +59,7 @@ export default function Pomodoro() {
                     // ----firebase沒紀錄, 就寫一個新的
                     const newRecord = {
                         date: new Date().toISOString().split('T')[0],
-                        imageNumber: 1, // 初始值
+                        imageNumber: 0, // 初始值
                     };
                     // 指定紀錄格式為 lastCompletedPomodoro[date:a, imageNumber:a]
                     await setDoc(docRef, { lastCompletedPomodoro: newRecord });
