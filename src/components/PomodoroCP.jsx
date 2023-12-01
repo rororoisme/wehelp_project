@@ -49,7 +49,6 @@ export default function Pomodoro() {
                 if (docSnap.exists()) {
                     // 從後端拿 lastCompletedPomodoro字段，並用 setLastCompletedPomodoro更新
                     setLastCompletedPomodoro(docSnap.data().lastCompletedPomodoro);
-
                     // 從後端拿 lastCompletedPomodoro.imageNumber, 用 setPomodoroCount更新
                     // incrementPomodoroCount(影響setcount) 是從0開始, 每次跑完都+1, 因此這裡也要call function 讓它一起把context的值與資料庫互動, 更新
                     // 順序為-> 計算docSnap.data().lastCompletedPomodoro.imageNumber-> 丟到setPomodoroCount-> 丟回context
@@ -58,8 +57,8 @@ export default function Pomodoro() {
                 } else {
                     // ----firebase沒紀錄, 就寫一個新的
                     const newRecord = {
-                        date: new Date().toISOString().split('T')[0],
-                        imageNumber: 0, // 初始值
+                        date: new Date().toLocaleDateString('en-CA'),
+                        imageNumber: 0,
                     };
                     // 指定紀錄格式為 lastCompletedPomodoro[date:a, imageNumber:a]
                     await setDoc(docRef, { lastCompletedPomodoro: newRecord });
