@@ -17,7 +17,7 @@ const Login = () => {
 
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            router.push('/');
+            router.push('/main');
         } catch (error) {
             setError("查無此帳號，請先");
             console.error("Error signing in with email and password", error);
@@ -41,6 +41,7 @@ const Login = () => {
                     placeholder="Password"
                 />
                 <button className={styles.submit} type="submit">登入</button>
+                <p className={styles.loginMessage}>還沒有帳號嗎？點此<Link href="/signup">註冊</Link></p>
                 {error && <div className={styles.errorMessage}>{error}<Link href="/signup">註冊</Link></div>}
             </form>
         </div>

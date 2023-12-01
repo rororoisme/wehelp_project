@@ -6,6 +6,9 @@ const Main = () => {
         window.location.href = '/signup';
     }
 
+function toLogin() {
+    window.location.href = '/login';
+}
 
     return (
         <div className='text-white'>
@@ -23,7 +26,7 @@ const Main = () => {
                 </div>
                 <p className='md:text-2xl text-xl font-bold text-gray-500' >準備好了嗎...</p>
                 {/* 注意在 tailwind下 預設的button標籤特性 */}
-                <button className='bg-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black' onClick={toSignup}>開始!</button>
+                <button className='bg-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black' onClick={toLogin}>開始!</button>
             </div>
         </div>
     )
