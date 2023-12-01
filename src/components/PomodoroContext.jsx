@@ -14,8 +14,10 @@ export const PomodoroProvider = ({ children }) => {
         setPomodoroCount((prevCount) => {
             const newCount = prevCount + 1;
             const newRecord = {
-                date: new Date().toISOString().split('T')[0],
+                date: new Date().toLocaleDateString('en-CA'),
                 imageNumber: newCount,
+                // date: new Date().toISOString().split('T')[0],
+                // imageNumber: newCount,
             };
             setLastCompletedPomodoro(newRecord);
     
