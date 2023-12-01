@@ -27,6 +27,7 @@ export default function MyFullCalendarCP() {
             initialView="dayGridMonth"
             events={events}
             eventContent={eventContent}
+            timeZone="Asia/Taipei"
         />
     );
 }
