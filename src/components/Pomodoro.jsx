@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { PomodoroContext } from './PomodoroContext';
-import styles from '../styles/pomodoro.module.css';
+import styles from '../styles/home.module.css';
 import { db } from '../firebase/firebaseConfig';
-import { where, getDoc, setDoc, query, collection, doc } from 'firebase/firestore';
+import { getDoc, setDoc, doc } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 export default function Pomodoro() {
@@ -72,10 +72,27 @@ export default function Pomodoro() {
     
 
     return (
-        <div className={styles.container}>
-            <div className={styles.drop}><h3>Time Left: {new Date(timeLeft * 1000).toISOString().slice(14, 19)}</h3>
-                <div className={styles.content}>
-                    <button onClick={startTimer} className={styles.btn}>開始</button>
+        <div className={styles.row}>
+            <div className={styles.bigColumn}>
+                <div className={styles.heading}>
+                    <h2>番茄鐘</h2>
+                </div>
+            </div>
+            <div className={styles.column}>
+                <div className={styles.item}>
+                    <button className={styles.btn}>增加</button>
+                    <button className={styles.btn}>減少</button>
+                    <button className={styles.btn}>重置</button>
+                </div>
+            </div>
+            <div className={styles.column}>
+                <div className={styles.item}>
+                    <h3>Time Left: {new Date(timeLeft * 1000).toISOString().slice(14, 19)}</h3>
+                </div>
+            </div>
+            <div className={styles.column}>
+                <div className={styles.item}>
+                <button onClick={startTimer} className={styles.btn}>開始</button>
                     <button onClick={stopTimer} className={styles.btn}>停止</button>
                     <button onClick={resetTimer} className={styles.btn}>重置</button>
                     <button onClick={nextPomodoro} className={styles.btn}>快轉</button>
@@ -84,4 +101,3 @@ export default function Pomodoro() {
         </div>
     );
 }
-

@@ -2,13 +2,11 @@ import React from 'react';
 import Typed from 'react-typed';
 
 const Main = () => {
-    function toSignup() {
-        window.location.href = '/signup';
-    }
 
-function toLogin() {
-    window.location.href = '/login';
-}
+
+    function toLogin() {
+        window.location.href = '/login';
+    }
 
     return (
         <div className='text-white'>
