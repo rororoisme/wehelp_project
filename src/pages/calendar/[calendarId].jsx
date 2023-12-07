@@ -1,23 +1,22 @@
-import { useContext, useState, useEffect } from 'react';
+// 生成calendar/[calendarId]路由的頁面
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import PomodoroImage from './PomodoroImage';
-import { where, onSnapshot, query, collection } from 'firebase/firestore';
-import { db } from '../firebase/firebaseConfig';
-import { useAuth } from './AuthContext';
+import PomodoroImage from '../../components/PomodoroImage';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { db } from '../../firebase/firebaseConfig';
 
-export default function MyFullCalendarCP() {
-    const { currentUser } = useAuth();
+export default function CalendarPage() {
+    const router = useRouter();
+    const { calendarId } = router.query; // 裝網址裡面的 calendarId
     const [events, setEvents] = useState([]);
 
-    // Firebase READ
     useEffect(() => {
-        if (currentUser) {
-            const q = query(collection(db, 'pomodoroImages'), where('id', '==', currentUser.uid));
+        if (calendarId) {
+            const q = query(collection(db, 'pomodoroImages'), where('id', '==', calendarId));
 
-            // 利用onSnapshot 設置"只要firebase資料更動, 行事曆就同步更動" 的監聽器
             const unsubscribe = onSnapshot(q, querySnapshot => {
-                
                 const userEvents = querySnapshot.docs.map(docSnap => ({
                     title: 'Pomodoro Completed',
                     start: docSnap.data().date,
@@ -31,14 +30,23 @@ export default function MyFullCalendarCP() {
 
             return () => unsubscribe();
         }
-    }, [currentUser]);
+    }, [calendarId]);
 
-    const eventContent = (eventInfo ) => {
-        
+    const goMainPage = async () => {
+        try {
+            router.push('/main');
+        } catch (error) {
+            console.error("Error logging out", error);
+        }
+    };
+
+    const eventContent = (eventInfo) => {
         return <PomodoroImage imageNumber={eventInfo.event.extendedProps.imageNumber} />;
     };
 
     return (
+        <div>
+        <button onClick={goMainPage}>回到首頁</button>
         <FullCalendar
             plugins={[dayGridPlugin]}
             initialView="dayGridMonth"
@@ -46,5 +54,6 @@ export default function MyFullCalendarCP() {
             eventContent={eventContent}
             timeZone="Asia/Taipei"
         />
+        </div>
     );
 }

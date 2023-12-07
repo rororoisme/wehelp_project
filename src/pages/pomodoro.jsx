@@ -1,4 +1,4 @@
-import Pomodoro from '../components/PomodoroCP';
+import Pomodoro from '../components/Pomodoro';
 import { useRouter } from 'next/router';
 import { logout } from '../utils/logout';
 
