@@ -57,11 +57,38 @@ export default function FriendsRequest() {
             where('to', '==', currentUser.uid),
             where('from', '==', friendUid),
             where('status', '==', 'accepted')
-            );
+        );
     
         const friendCheckSnapshot2 = await getDocs(friendCheckQuery2);
         if (!friendCheckSnapshot2.empty) {
             setErrorMessage('你們已經是好友了');
+            return;
+        }
+
+        // 擋掉等待好友邀請的狀態
+        const friendWaitQuery = query(
+            collection(db, 'friendRequests'),
+            where('to', '==', currentUser.uid),
+            where('from', '==', friendUid),
+            where('status', '==', 'pending')
+        );
+    
+        const friendWaitSnapshot = await getDocs(friendWaitQuery);
+        if (!friendWaitSnapshot.empty) {
+            setErrorMessage('對方正在等待您的好友答覆');
+            return;
+        }
+
+        const friendWaitQuery2 = query(
+            collection(db, 'friendRequests'),
+            where('to', '==', friendUid),
+            where('from', '==', currentUser.uid),
+            where('status', '==', 'pending')
+        );
+    
+        const friendWaitSnapshot2 = await getDocs(friendWaitQuery2);
+        if (!friendWaitSnapshot2.empty) {
+            setErrorMessage('您已送出好友邀請');
             return;
         }
 
