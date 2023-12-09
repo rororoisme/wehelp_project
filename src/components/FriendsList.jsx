@@ -53,11 +53,12 @@ export default function FriendsRequest() {
         // 渲染好友列表
         return (
             <div className={styles.column}>
-                <div className={styles.item}>
+                <div className={styles.itemFriends}>
+                    <h3 className={styles.itemsTitle}>好友名單</h3>
                     <ul>
                         {friends.map((friend, index) => (
-                            <li key={index}>
-                                <a href={`/calendar/${friend.uid}`}>{friend.userName}</a>
+                            <li class={styles.list} key={index}>
+                                <a class={styles.listItems} href={`/calendar/${friend.uid}`}>{friend.userName}</a>
                             </li>
                         ))}
                     </ul>

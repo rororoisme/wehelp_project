@@ -5,9 +5,10 @@ import { collection, addDoc, getDocs, query, where } from 'firebase/firestore';
 import styles from '../styles/home.module.css';
 
 export default function FriendsRequest() {
-    const { friends, setFriends, currentUser } = useContext(FriendsContext);
+    const { setFriends, currentUser } = useContext(FriendsContext);
     const [newFriendName, setNewFriendName] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     // 處理添加好友請求
     const handleAddFriend = async () => {
@@ -106,6 +107,7 @@ export default function FriendsRequest() {
             status: 'pending' 
         });
 
+        setSuccessMessage('好友邀請已成功發送');
         setNewFriendName('');
         setErrorMessage(''); // 清除錯誤信息
     };
@@ -143,18 +145,19 @@ export default function FriendsRequest() {
         }
     }, [currentUser]);
     
-    //TODO: 送出好友邀請成功訊息
     return (
         <div className={styles.column}>
-            <div className={styles.item}>
-                <input 
+            <div className={styles.itemFriends}>
+                <h3 className={styles.itemsTitle}>邀請好友</h3>
+                <input className={styles.requesInput}
                     type="text"
                     value={newFriendName}
                     onChange={(e) => setNewFriendName(e.target.value)}
                     placeholder="輸入好友名稱"
                 />
 
-                <button onClick={handleAddFriend}>發送好友請求</button>
+                <button className={styles.btn} onClick={handleAddFriend}>邀請</button>
+                {successMessage && <div className={styles.msg}>{successMessage}</div>}
                 {errorMessage && <p>{errorMessage}</p>}
             </div>
         </div>
