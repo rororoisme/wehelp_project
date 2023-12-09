@@ -12,8 +12,6 @@ export default function Pomodoro() {
     const { setLastCompletedPomodoro } = useContext(PomodoroContext);
     const { setPomodoroCount } = useContext(PomodoroContext);
 
-    // TODO:檢查跑完之後為什麼會從60分開始倒數
-
     useEffect(() => {
         let interval;
         if (isRunning) {
@@ -21,6 +19,8 @@ export default function Pomodoro() {
                 setTimeLeft(timeLeft => {
                     if (timeLeft === 1) {
                         incrementPomodoroCount();
+                        setIsRunning(false);
+                        return 25 * 60;
                     }
                     return timeLeft - 1;
                 });
@@ -36,6 +36,13 @@ export default function Pomodoro() {
     const resetTimer = () => {
         setTimeLeft(25 * 60);
         setIsRunning(false);
+    };
+
+    const increaseTime = () => {
+        setTimeLeft(timeLeft => timeLeft + 60);
+    };
+    const decreaseTime = () => {
+        setTimeLeft(timeLeft => Math.max(timeLeft - 60, 0));
     };
 
     // fireBase Update & Read
@@ -79,19 +86,22 @@ export default function Pomodoro() {
                 </div>
             </div>
             <div className={styles.column}>
-                <div className={styles.item}>
-                    <button className={styles.btn}>增加</button>
-                    <button className={styles.btn}>減少</button>
-                    <button className={styles.btn}>重置</button>
+                <div className={styles.itemPomo}>
+                    <h3 className={styles.itemsTitle}>時數調整</h3>
+                    <button onClick={increaseTime} className={styles.btn}>增加</button>
+                    <button onClick={decreaseTime} className={styles.btn}>減少</button>
+                    <button onClick={resetTimer} className={styles.btn}>重置時數</button>
                 </div>
             </div>
             <div className={styles.column}>
-                <div className={styles.item}>
-                    <h3>Time Left: {new Date(timeLeft * 1000).toISOString().slice(14, 19)}</h3>
+                <div className={styles.itemPomo}>
+                    <h3 className={styles.itemsTitle}>番茄鐘</h3>
+                    <h3 className={styles.pomoContent}>Time Left: {new Date(timeLeft * 1000).toISOString().slice(14, 19)}</h3>
                 </div>
             </div>
             <div className={styles.column}>
-                <div className={styles.item}>
+                <div className={styles.itemPomo}>
+                <h3 className={styles.itemsTitle}>番茄鐘</h3>
                 <button onClick={startTimer} className={styles.btn}>開始</button>
                     <button onClick={stopTimer} className={styles.btn}>停止</button>
                     <button onClick={resetTimer} className={styles.btn}>重置</button>

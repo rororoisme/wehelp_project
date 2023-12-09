@@ -11,7 +11,6 @@ import FriendsRequest from '../components/FriendsRequest';
 import FriendsList from '../components/FriendsList';
 
 export default function Home() {
-    const { lastCompletedPomodoro } = useContext(PomodoroContext);
 
     useProtectedRoute();
 
@@ -27,62 +26,33 @@ export default function Home() {
 
     return (
         <FriendsProvider>
-            <div className={styles.service}>
-                <div className={styles.container}>
-                    <div className={styles.row}>
-                        <div className={styles.bigColumn}>
-                            <div className={styles.heading}>
-                                <h2>好友</h2>
+            <div className={styles.background}>
+                <div className={styles.service}>
+                    <div className={styles.container}>
+                        <div className={styles.row}>
+                            <div className={styles.bigColumn}>
+                                <div className={styles.heading}>
+                                    <h2 className={styles.manyPic}>好友</h2>
+                                </div>
                             </div>
-                        </div>
-                        <FriendsInvitation/>
-                        <FriendsRequest/>
-                        <FriendsList/>
-                    </div>
-                </div>
-            </div>
-
-            <div className={styles.service}>
-                <div className={styles.container}>
-                    <Pomodoro />
-                    <button onClick={handleLogout} className={styles.logoutbtn}>登出</button>
-                    </div>
-            </div>
-
-            {/* <div className={styles.service}>
-                <div className={styles.container}>
-                    <div className={styles.row}>
-                        <div className={styles.bigColumn}>
-                            <div className={styles.heading}>
-                                <h2>放大鏡</h2>
-                            </div>
-                        </div>
-                        <div className={styles.column}>
-                            <div className={styles.item}>
-                                {lastCompletedPomodoro && <PomodoroImage imageNumber={lastCompletedPomodoro.imageNumber} />}
-                            </div>
-                        </div>
-                        <div className={styles.column}>
-                            <div className={styles.item}>
-                                {lastCompletedPomodoro && <PomodoroImage imageNumber={lastCompletedPomodoro.imageNumber} />}
-                            </div>
-                        </div>
-                        <div className={styles.column}>
-                            <div className={styles.item}>
-                                留言
-                            </div>
+                            <FriendsInvitation/>
+                            <FriendsRequest/>
+                            <FriendsList/>
                         </div>
                     </div>
                 </div>
-            </div> */}
 
+                <div className={styles.service}>
+                    <div className={styles.container}>
+                        <Pomodoro />
+                        <button onClick={handleLogout} className={styles.logoutbtn}>登出</button>
+                        </div>
+                </div>
 
-            <div className={styles.containerCalendar}>
-                <div className={styles.calendar}>
-                    <h2>打卡日曆</h2>
+                <div className={styles.containerCalendar}>
                     <MyFullCalendar />
                 </div>
-            </div>
+            </div >
         </FriendsProvider>
     );
 }

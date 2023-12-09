@@ -1,10 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap");
 
+.background {
+    background-color: #0085f122;
+}
 
 .service {
     padding-top: 45px;
     padding-bottom: 45px;
-    border-bottom: 3px dotted #eee;
+    border-bottom: 4px dotted #FFFFFF;
 }
 
 .container {
@@ -13,16 +16,15 @@
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
-    /* border: red solid 1px; */
 }
 
 .bigColumn {
-    flex: 0 0 100%;
+    flex: 1 1 100%;
     max-width: 100%;
 }
 
 .column {
-    flex: 0 0 33.333333%;
+    flex: 1 1 33.333333%;
     max-width: 33.333333%;
     position: relative;
     width: 100%;
@@ -38,13 +40,37 @@
     margin-left: -15px;
 }
 
+.manyPic {
+    position: relative; /* 為偽元素定位提供基準 */
+    overflow: hidden; /* 確保超出部分不顯示 */
+}
+
+.manyPic::after {
+    content: ''; /* 偽元素需要 content 屬性 */
+    position: absolute; /* 絕對定位 */
+    left: 0;
+    bottom: 0;
+    width: 100%; /* 覆蓋整個寬度 */
+    height: 60%; /* 覆蓋一半高度 */
+    background-color: #eee;
+    opacity: 0.5; /* 設置透明度，0 (完全透明) 到 1 (完全不透明) 之間 */
+}
+
+.manyPic {
+    padding: 40px;
+    background-image: url('/pic/many.jpg'); /* 設置背景圖片 */
+    background-size: cover; /* 確保圖片覆蓋整個元素 */
+    background-repeat: no-repeat; /* 防止背景圖片重複 */
+    background-position: center; /* 將背景圖片置於元素中央 */
+}
+
 .title {
-    flex: 0 0 100%;
+    flex: 1 1 100%;
     max-width: 100%;
 }
 
 .heading {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
     text-align: center;
 }
 
@@ -52,6 +78,68 @@
     padding: 30px;
     box-shadow: 0px 0px 15px rgba(0,0,0,0.10);
     text-align: center;
+}
+
+.itemFriends {
+    color: #03045E;
+    padding: 30px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.10);
+    text-align: center;
+    height: 300px;
+    background-color: #FFFFFF;
+    border-radius: 20px
+}
+
+.itemsTitle {
+    color: #03045E;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 3px dotted #eee;
+}
+
+.by {
+    padding-top: 10px;
+    color: #0077b6;
+    opacity: 0.5;
+    font-weight: 700;
+}
+
+.requesInput {
+    width: 60%;
+    margin-top: 15px;
+    padding: 5px;
+    padding-left: 6px;
+    color: #A8DADC;
+}
+
+.msg {
+    font-size: 15px;
+}
+
+.list {
+    list-style-type: none;
+    padding-top: 10px;
+}
+
+.listItems {
+    color: #0077b6;
+    opacity: 0.5;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.listItems:hover{
+    color: #03045E;
+}
+
+.itemPomo {
+    color: #03045E;
+    padding: 30px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.10);
+    text-align: center;
+    height: 300px;
+    background-color: #FFFFFF;
+    border-radius: 20px
 }
 
 .pomo {
@@ -62,7 +150,6 @@
     flex-direction: column;
     text-align: center;
     padding: 40px;
-    /* border: red solid 1px; */
 }
 
 .image {
@@ -73,7 +160,6 @@
     flex-direction: column;
     text-align: center;
     padding: 40px;
-    /* border: red solid 1px; */
 }
 
 .h2 {
@@ -84,22 +170,9 @@
     border-radius: 50%;
 }
 
-.a {
-    position: relative;
-    padding: 10px 25px;
-    background: rebeccapurple;
-    text-decoration: none;
-    color: #fff;
-    border-radius: 25px;
-    font-weight: 500;
-    text-shadow: 0 2px 2px rgba(0,0,0,0.025);
-    opacity: 0.75;
-    transition: 0.5s;
-}
-
 .btn {
-    margin: 10px 0;
-    padding: 8px;
+    margin: 10px 10px;
+    padding: 6px 8px;
     background-color: #007bff;
     color: white;
     border: none;
@@ -112,6 +185,21 @@
     background-color: #0056b3;
 }
 
+.btnRed {
+    margin: 10px 10px;
+    padding: 6px 8px;
+    background-color: #E63946;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btnRed:hover {
+    background-color: #d90429;
+}
+
 .input {
     width: 100%;
     padding: 10px;
@@ -119,6 +207,19 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+}
+
+.pomoContent {
+    color: #0077b6;
+    opacity: 0.5;
+    font-weight: 700;
+}
+
+.containerCalendar{
+    padding-top: 45px;
+    padding-bottom: 45px;
+    margin: auto;
+    max-width: 90%;
 }
 
 .logoutbtn {
@@ -135,17 +236,36 @@
     font-size: 16px;
 }
 
-.calendar {
-    /* border: red solid 1px; */
-    width: 80%;
-}
 
-.containerCalendar {
-    background-color: #fff;
-    margin: 20px;
-    padding: 20px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+@media (max-width: 720px) {
+    .row {
+        display: block;
+        margin: auto;
+    }
+
+    .container {
+        padding: 0;
+    }
+
+    .column {
+        max-width: 90%;
+        margin: auto;
+        box-sizing: content-box;
+    }
+
+    .itemFriends {
+        margin: 30px;
+        font-size: 20px;
+        height: auto;
+    }
+
+    .requesInput {
+        margin-top: 35px;
+    }
+
+    .itemPomo {
+        margin: 30px;
+        font-size: 20px;
+        height: auto;
+    }
 }

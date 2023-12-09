@@ -5,6 +5,8 @@ import PomodoroImage from './PomodoroImage';
 import { where, onSnapshot, query, collection } from 'firebase/firestore';
 import { db } from '../firebase/firebaseConfig';
 import { useAuth } from './AuthContext';
+import styles from '../styles/fullCalendar.css';
+
 
 export default function MyFullCalendarCP() {
     const { currentUser } = useAuth();
@@ -33,8 +35,7 @@ export default function MyFullCalendarCP() {
         }
     }, [currentUser]);
 
-    const eventContent = (eventInfo ) => {
-        
+    const eventContent = (eventInfo) => {
         return <PomodoroImage imageNumber={eventInfo.event.extendedProps.imageNumber} />;
     };
 

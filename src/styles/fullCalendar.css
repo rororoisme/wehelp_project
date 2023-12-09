@@ -1,0 +1,70 @@
+:root {
+    --fc-border-color: none;
+    --fc-button-bg-color:#007bff;
+  }
+
+.fc-theme-standard {
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+/* 標題 */
+.fc-toolbar-chunk {
+    color: #274C77;
+}
+
+/* 按鈕 */
+.fc .fc-button-primary {
+    border: none;
+    
+}
+
+.fc .fc-button-primary:hover {
+    background-color: #0056b3;
+    
+}
+
+.fc-button-group {
+    margin: 5px;
+}
+
+/* 週一到週日的字 */
+.fc th {
+    text-align: right;
+}
+
+.fc-col-header {
+    background-color: #bde0fe;
+}
+
+.fc-col-header-cell {
+    font-size:16px;
+}
+
+/* 滾動條 */
+.fc-scroller::-webkit-scrollbar {
+    background-color: #FFFFFF;
+}
+
+
+.fc-scroller::-webkit-scrollbar-thumb {
+    background-color: white; 
+}
+
+/* 日期 */
+tr{
+    border-bottom: solid 5px whitesmoke;
+}
+
+.fc-theme-standard td {
+    width: 58px;
+    height: 100px;
+}
+
+.fc-daygrid-day-number {
+    color:#0077b6;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 50%;
+}

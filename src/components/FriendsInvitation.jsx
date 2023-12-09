@@ -43,14 +43,14 @@ export default function FriendsInvitation () {
 
     return (
         <div className={styles.column}>
-            <div className={styles.item}>
-            <h2>好友請求</h2>
+            <div className={styles.itemFriends}>
+                <h3 className={styles.itemsTitle}>好友請求</h3>
                 {requests.map((request) => (
                     !request.isHandled && (
                         <div key={request.id}>
-                            <p>來自: {request.fromUserName}</p>
-                            <button onClick={() => handleRequest(request.id, true)}>接受</button>
-                            <button onClick={() => handleRequest(request.id, false)}>拒絕</button>
+                            <p className={styles.by}>來自: {request.fromUserName}</p>
+                            <button className={styles.btn} onClick={() => handleRequest(request.id, true)}>接受</button>
+                            <button className={styles.btnRed} onClick={() => handleRequest(request.id, false)}>拒絕</button>
                         </div>
                     )
                 ))}
