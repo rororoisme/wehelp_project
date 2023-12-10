@@ -6,11 +6,20 @@ import { where, onSnapshot, query, collection } from 'firebase/firestore';
 import { db } from '../firebase/firebaseConfig';
 import { useAuth } from './AuthContext';
 import styles from '../styles/fullCalendar.css';
-
+import CalendarMsg from './CalendarMsg';
 
 export default function MyFullCalendarCP() {
     const { currentUser } = useAuth();
+    // 留言功能
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState({ mood: ''});
     const [events, setEvents] = useState([]);
+
+    const handleEventClick = (clickInfo) => {
+        const { mood} = clickInfo.event.extendedProps;
+        setSelectedEvent({ mood });
+        setModalOpen(true);
+    };
 
     // Firebase READ
     useEffect(() => {
@@ -27,6 +36,7 @@ export default function MyFullCalendarCP() {
                     backgroundColor: '#00000000',
                     borderColor: "#00000000",
                     imageNumber: docSnap.data().imageNumber,
+                    mood: docSnap.data().mood,
                 }));
                 setEvents(userEvents);
             });
@@ -40,12 +50,20 @@ export default function MyFullCalendarCP() {
     };
 
     return (
+        <>
         <FullCalendar
             plugins={[dayGridPlugin]}
             initialView="dayGridMonth"
             events={events}
             eventContent={eventContent}
             timeZone="Asia/Taipei"
+            eventClick={handleEventClick}
         />
+        <CalendarMsg 
+            isOpen={modalOpen} 
+            mood={selectedEvent.mood} 
+            onClose={() => setModalOpen(false)}
+        />
+        </>
     );
 }

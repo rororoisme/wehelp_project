@@ -1,0 +1,89 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    z-index: 1001;
+    width: 550px;
+    max-width: 60%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modalContentRead {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    z-index: 1001;
+    width: 550px;
+    max-width: 60%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.msgContent {
+    width: 60%;
+    margin-top: 15px;
+    padding: 5px;
+    padding-left: 6px;
+    color: #0077b6;
+    font-weight: 700;
+    margin: 20px auto;
+}
+
+.defaultMsg {
+    width: 60%;
+    margin-top: 15px;
+    padding: 5px;
+    padding-left: 6px;
+    color: #E63946;
+    font-weight: 700;
+    margin: 20px auto;
+}
+
+.closeButton {
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.itemsTitle {
+    color: #03045E;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 3px dotted #eee;
+}
+
+.msgContent:focus {
+    border-color:#007bff;
+}
+
+.btn {
+    margin: 10px 10px;
+    padding: 6px 8px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 40%;
+}
