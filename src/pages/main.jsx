@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import Pomodoro from '../components/Pomodoro';
 import MyFullCalendar from '../components/MyFullCalendarCP';
-import { PomodoroContext } from '../components/PomodoroContext';
 import useProtectedRoute from '../hooks/useProtectedRoute';
 import { logout } from '../utils/logout';
 import styles from '../styles/home.module.css';
@@ -32,7 +31,7 @@ export default function Home() {
                         <div className={styles.row}>
                             <div className={styles.bigColumn}>
                                 <div className={styles.heading}>
-                                    <h2 className={styles.manyPic}>好友</h2>
+                                    <h2 className={styles.manyPic}></h2>
                                 </div>
                             </div>
                             <FriendsInvitation/>
