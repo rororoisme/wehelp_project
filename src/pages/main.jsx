@@ -26,7 +26,7 @@ export default function Home() {
     return (
         <FriendsProvider>
             <div className={styles.background}>
-                <div className={styles.service}>
+                <div className={styles.serviceTop}>
                     <div className={styles.container}>
                         <div className={styles.row}>
                             <div className={styles.bigColumn}>
