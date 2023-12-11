@@ -39,6 +39,10 @@
     transform: translate(-50%, -50%);
 }
 
+.msgContainer{
+    border-bottom: 3px dotted #eee;
+}
+
 .msgContent {
     width: 60%;
     margin-top: 15px;

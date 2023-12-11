@@ -18,7 +18,7 @@ export default function MyFullCalendarCP() {
     const [msgs, setMsgs] = useState([]);
 
     // 讀取功能
-    const [modalData, setModalData] = useState({ isOpen: false, msg: '', uid: '' });
+    const [modalData, setModalData] = useState({ isOpen: false, msgs: [] });
     const [users, setUsers] = useState([]);
 
     const handleEventClick = (clickInfo) => {
@@ -28,10 +28,13 @@ export default function MyFullCalendarCP() {
     };
 
     // 顯示 user資料庫中抓到的id
-    const handleShowMessage = (msg, uid) => {
-        const user = users.find(user => user.uid === uid);
-        const userName = user ? user.userName : 'Unknown User';
-        setModalData({ isOpen: true, msg, uid: userName });
+    const handleShowMessage = (date) => {
+        const filteredMsgs = msgs.filter(msg => msg.date === date).map(msg => {
+            const user = users.find(user => user.uid === msg.uid);
+            const userName = user ? user.userName : 'Unknown User';
+            return { ...msg, uid: userName };
+        });
+        setModalData({ isOpen: true, msgs: filteredMsgs });
     };
 
     // Firebase READ
@@ -85,19 +88,18 @@ export default function MyFullCalendarCP() {
     }, [currentUser]);
 
     const eventContent = (eventInfo) => {
-        const eventMsg = msgs.find(msg => msg.date === eventInfo.event.startStr);
+        const eventMsgExists = msgs.some(msg => msg.date === eventInfo.event.startStr);
         return (
             <>
                 <PomodoroImage imageNumber={eventInfo.event.extendedProps.imageNumber} />
-                {eventMsg && <button class="msgBtn" onClick={
-                    (e) => {
-                        handleShowMessage(eventMsg.msg, eventMsg.uid);
-                        e.stopPropagation();
-                    }
-                }>夥伴共筆</button>}
+                {eventMsgExists && <button class="msgBtn" onClick={(e) => {
+                    handleShowMessage(eventInfo.event.startStr);
+                    e.stopPropagation();
+                }}>夥伴共筆</button>}
             </>
         );
     };
+    
 
     return (
         <>
@@ -115,10 +117,10 @@ export default function MyFullCalendarCP() {
             onClose={() => setModalOpen(false)}
         />
         <MsgRead
-        isOpen={modalData.isOpen}
-        msg={modalData.msg}
-        uid={modalData.uid}
-        onClose={() => setModalData({ ...modalData, isOpen: false })}
+            isOpen={modalData.isOpen}
+            msgs={modalData.msgs}
+            uid={modalData.uid}
+            onClose={() => setModalData({ ...modalData, isOpen: false })}
         />
         </>
     );
